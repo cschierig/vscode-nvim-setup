@@ -102,7 +102,7 @@ If enabled, the relative distance of your cursor to the corresponding line will 
 In this module, we are going to be taking a look at how to set up some neovim plugins.
 These are not necessary for the core experience, but can improve the editing experience and/or provide similar features to the ones VSCode provides by default in a more vim-like fashion.
 
-## 5.1) packer.nvim \[*Required*\]
+### 5.1) packer.nvim \[*Required*\]
 
 | Name        | packer.nvim                                 |
 | ----------- | ------------------------------------------- |
