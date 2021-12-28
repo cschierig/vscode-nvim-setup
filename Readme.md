@@ -93,9 +93,29 @@ If you want to, you can also enable relative line numbers like this:
 ```
 If enabled, the relative distance of your cursor to the corresponding line will be shown instead of the absolute line number.
 
-## 4) Entering and exiting normal mode \[*Optional*\]
+## 4) Entering normal mode \[*Optional*\]
 
+> This section is pretty much copied over from the [vscode-neovim extension readme](https://github.com/asvetliakov/vscode-neovim#custom-escape-keys), but included for the sake of completeness.
 
+I like to enter normal mode by pressing `jk` instead of `Ctrl+C` or `Esc`. While it doesn't work perfectly, both using `jj` and `jk` is supported by the vscode-neovim extension. To use them, open your `keybindings.json` similarly to how you opened the settings.json and add the following keybindings: 
+
+```json
+// enter normal mode with jk
+{
+    "command": "vscode-neovim.compositeEscape1",
+    "key": "j",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "j"
+},
+{
+    "command": "vscode-neovim.compositeEscape2",
+    "key": "k",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "k"
+},
+```
+
+Unfortunately, it is not possible to enable `jk` without enabling `jj`. More information on that can be found in the [vscode-neovim extension readme](https://github.com/asvetliakov/vscode-neovim#custom-escape-keys).
 
 ## 5) Neovim plugins \[*Optional*\]
 
@@ -156,6 +176,28 @@ require('packer').startup(function(use)
 Each time you add or remove a plugin, use the command `:PackerSync` to update and install your plugins.
 You might have to restart VSCode before that so that the configuration updates.
 
+### 5.2) mapx.nvim \[*Optional*\]
+
+| Name        | mapx.nvim                            |
+| ----------- | ------------------------------------ |
+| Author      | [b0o](https://github.com/b0o)        |
+| Source      | <https://github.com/b0o/mapx.nvim>   |
+| Description | easier key (re)mapping in lua config |
+
+This plugin adds functions to simplify the configuration of key mappings and commands in a lua config. You should definitely use it if you are planning on customizing your mappings.
+
+To use it, add
+```lua
+-- for adding mappings
+use 'b0o/mapx.nvim'
+```
+inside of the `packer.nvim` startup function and 
+```lua
+-- setup mapx
+require('mapx').setup{ global = true }
+```
+after it. The second option is needed to include the functions in the global scope.
+
 ### 5.3) sandwich.vim \[*Optional*\]
 
 | Name        | sandwich.vim                                |
@@ -164,7 +206,7 @@ You might have to restart VSCode before that so that the configuration updates.
 | Source      | <https://github.com/machakann/vim-sandwich> |
 | Description | surround text objects with things           |
 
-`sandwich.vim` is a plugin which makes it very easy to surround text with parentheses, quotes, etc.
+`sandwich.vim` is a plugin which makes it very easy to surround text with parentheses, quotes, etc..
 If you want to use it, add
 
 ```lua

@@ -13,6 +13,9 @@ end
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     
+    -- for adding mappings
+    use 'b0o/mapx.nvim'
+
     -- surround text objects
     use 'machakann/vim-sandwich'
 
@@ -23,6 +26,9 @@ require('packer').startup(function(use)
     end
 end
 )
+
+-- setup mapx
+require'mapx'.setup{ global = true }
 
 -- vscode and nvim only settings
 if (vim.g.vscode) then
