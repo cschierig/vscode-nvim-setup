@@ -117,7 +117,7 @@ packer.nvim is a plugin manager allowing you to install and use plugins similarl
 Instead of installing it packer.nvim manually, we are going to do something they also suggest in their [readme](https://github.com/wbthomason/packer.nvim#bootstrapping). Into the global section of the `init.lua` file we created earlier, paste the following code *(We're going to go over it right after, but copying it in one go usually results in less errors from selecting to little or to much)*.
 
 ```lua
---packer.nvim config
+-- packer.nvim config
 
 -- ensure that packer is installed
 local fn = vim.fn
@@ -133,8 +133,7 @@ This piece of code will check if packer.nvim is installed by checking if the fol
 After this add the the following lines to your neovim configuration. They will properly initialize `packer.nvim` and are where we are going to specify which plugins we want to use later on.
 ```lua
 -- configure plugins
-return require('packer').startup(function()
-    local use = use
+require('packer').startup(function(use)
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
@@ -144,3 +143,32 @@ return require('packer').startup(function()
 end
 )
 ```
+
+The first plugin we want `packer.nvim` to manage is itself. This is done by adding the following line in the startup function:
+
+```lua
+...
+require('packer').startup(function(use)
+    use 'wbthomason/packer.nvim'
+...
+```
+
+Each time you add or remove a plugin, use the command `:PackerSync` to update and install your plugins.
+You might have to restart VSCode before that so that the configuration updates.
+
+### 5.3) sandwich.vim \[*Optional*\]
+
+| Name        | sandwich.vim                                |
+| ----------- | ------------------------------------------- |
+| Author      | [machakann](https://github.com/machakann)   |
+| Source      | <https://github.com/machakann/vim-sandwich> |
+| Description | surround text objects with things           |
+
+`sandwich.vim` is a plugin which makes it very easy to surround text with parentheses, quotes, etc.
+If you want to use it, add
+
+```lua
+-- surround text objects
+use 'machakann/vim-sandwich'
+```
+inside of the `packer.nvim` startup function.
