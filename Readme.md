@@ -47,7 +47,7 @@ To add the neovim executable path to your configuration, set the `vscode-neovim.
 Let's also add a comment to clarify that we'll put all settings related to the neovim extension here.
 Our example configuration now looks like this:
 
-```json
+```json5
 {
     // neovim
     "vscode-neovim.neovimExecutablePaths.win32": "C:\\Neovim\\bin\\nvim.exe",
@@ -81,14 +81,14 @@ For now, we are going to leave the `init.lua` file empty, but some of the option
 
 We already have a `settings.json` file so let's populate it with some settings to make our life easier.
 In the [vscode-neovim extension readme](https://github.com/asvetliakov/vscode-neovim#readme) it is recommended to set `"editor.scrollBeyondLastLine"` to `false`, so add
-```json
+```json5
     "editor.scrollBeyondLastLine": false, // recommended by neovim
 ```
 to your `settings.json`.
 This setting prevents the editor from creating an empty space below the last line of a file, which can result in some funky behaviour when scrolling or navigating through your code.
 
 If you want to, you can also enable relative line numbers like this:
-```json
+```json5
     "editor.lineNumbers": "relative",
 ```
 If enabled, the relative distance of your cursor to the corresponding line will be shown instead of the absolute line number.
@@ -99,7 +99,7 @@ If enabled, the relative distance of your cursor to the corresponding line will 
 
 I like to enter normal mode by pressing `jk` instead of `Ctrl+C` or `Esc`. While it doesn't work perfectly, both using `jj` and `jk` is supported by the vscode-neovim extension. To use them, open your `keybindings.json` similarly to how you opened the settings.json and add the following keybindings: 
 
-```json
+```json5
 // enter normal mode with jk
 {
     "command": "vscode-neovim.compositeEscape1",
@@ -234,7 +234,7 @@ It changes the quick fix menu to a quick open menu which can be navigated with t
 To make it work with `Ctrl+.` and `z=` (normal mode) you have to configure the keyboard shortcuts in the VSCode `keybindings.json` and the `init.lua` respectively
 
 `keybindings.json`:
-```json
+```json5
 // keyboard quickfix
 {
     "key": "ctrl+.",
@@ -268,7 +268,7 @@ I use this extension to easily append semicolons to the end of a line. It isn't 
 
 The keyboard shortcuts for this extension need to be configured so that it doesn't trigger in normal mode.
 Append this to your `keybindings.json`:
-```json
+```json5
 // colonize
 {
     "key": "shift+enter",
