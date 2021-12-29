@@ -30,9 +30,15 @@ end
 -- setup mapx
 require'mapx'.setup{ global = true }
 
+-- set clipboard to global clipboard
+vim.opt.clipboard:append("unnamedplus")
+
 -- vscode and nvim only settings
 if (vim.g.vscode) then
     -- VSCode extension
+
+    -- map keyboard quickfix
+    nnoremap('z=', "<Cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<Cr>")
 else
     -- ordinary neovim
 end

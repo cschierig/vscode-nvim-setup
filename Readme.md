@@ -214,3 +214,101 @@ If you want to use it, add
 use 'machakann/vim-sandwich'
 ```
 inside of the `packer.nvim` startup function.
+
+## 6) VSCode Extensions
+
+This module covers various VSCode extensions which need extra configuration to work well with neovim or which improve keyboard navigation in VSCode.
+
+### 6.1) Keyboard QuickFix \[*Optional*\]
+
+| Name        | Keyboard QuickFix                                                                  |
+| ----------- | ---------------------------------------------------------------------------------- |
+| Author      | [PascalSenn](https://github.com/PascalSenn)                                        |
+| Marketplace | <https://marketplace.visualstudio.com/items?itemName=pascalsenn.keyboard-quickfix> |
+| Source      | <https://github.com/PascalSenn/keyboard-quickfix>                                  |
+| Description | navigate quick fix menu with keyboard                                              |
+
+This one, once again, is suggested on the [vscode-neovim extension readme](https://github.com/asvetliakov/vscode-neovim#custom-escape-keys).
+It changes the quick fix menu to a quick open menu which can be navigated with the keyboard.
+
+To make it work with `Ctrl+.` and `z=` (normal mode) you have to configure the keyboard shortcuts in the VSCode `keybindings.json` and the `init.lua` respectively
+
+`keybindings.json`:
+```json
+// keyboard quickfix
+{
+    "key": "ctrl+.",
+    "command": "keyboard-quickfix.openQuickFix",
+    "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+},
+```
+`init.lua` in the VSCode section:
+```lua
+if (vim.g.vscode) then
+    -- VSCode extension
+    ...
+    -- map keyboard quickfix;
+    
+    nnoremap('z=', "<Cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<Cr>")
+    
+```
+
+For the lua code to work, you need to have mapx.nvim installed ([see 5.2) mapx.nvim](#52-mapxnvim-optional)).
+
+### 6.2) Colonize \[*Optional*\]
+
+| Name        | Colonize                                                                |
+| ----------- | ----------------------------------------------------------------------- |
+| Author      | [vmsynkov-zz](https://github.com/vmsynkov-zz)                           |
+| Marketplace | <https://marketplace.visualstudio.com/items?itemName=vmsynkov.colonize> |
+| Source      | <https://github.com/vmsynkov-zz/colonize>                               |
+| Description | add semicolons to the end of lines                                      |
+
+I use this extension to easily append semicolons to the end of a line. It isn't perfect and unfortunately not being updated anymore, so I might replace it with another extension in the near future, but it works well and isn't disruptive.
+
+The keyboard shortcuts for this extension need to be configured so that it doesn't trigger in normal mode.
+Append this to your `keybindings.json`:
+```json
+// colonize
+{
+    "key": "shift+enter",
+    "command": "colonize.endline",
+    "when": "neovim.mode == insert && editorTextFocus"
+},
+{
+    "key": "shift+enter",
+    "command": "-colonize.endline",
+    "when": "editorTextFocus"
+},
+{
+    "key": "ctrl+alt+enter",
+    "command": "colonize.hold",
+    "when": "neovim.mode == insert && editorTextFocus"
+},
+{
+    "key": "ctrl+alt+enter",
+    "command": "-colonize.hold",
+    "when": "editorTextFocus"
+},
+{
+    "key": "alt+enter",
+    "command": "colonize.newline",
+    "when": "neovim.mode == insert && editorTextFocus"
+},
+{
+    "key": "alt+enter",
+    "command": "-colonize.newline",
+    "when": "editorTextFocus"
+},
+```
+The keybindings have simply been modified to include `neovim.mode == insert`, which restricts keybindings to insert mode.
+
+## 7) System-wide clipboard
+
+By default, neovim uses another clipboard which makes it very hard to copy and paste stuff over from other programs.
+To change that, append
+```lua
+-- set clipboard to global clipboard
+vim.opt.clipboard:append("unnamedplus")
+```
+to the global section of your `init.lua`. This is equivalent to `set clipboard+=unnamedplus` in vimscript.

@@ -13,4 +13,41 @@
         "when": "neovim.mode == insert && editorTextFocus",
         "args": "k"
     },
+    // keyboard quickfix
+    {
+        "key": "ctrl+.",
+        "command": "keyboard-quickfix.openQuickFix",
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    },
+    // colonize
+    {
+        "key": "shift+enter",
+        "command": "colonize.endline",
+        "when": "neovim.mode == insert && editorTextFocus"
+    },
+    {
+        "key": "shift+enter",
+        "command": "-colonize.endline",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+enter",
+        "command": "colonize.hold",
+        "when": "neovim.mode == insert && editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+enter",
+        "command": "-colonize.hold",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+enter",
+        "command": "colonize.newline",
+        "when": "neovim.mode == insert && editorTextFocus"
+    },
+    {
+        "key": "alt+enter",
+        "command": "-colonize.newline",
+        "when": "editorTextFocus"
+    },
 ]
