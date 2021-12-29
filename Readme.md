@@ -312,3 +312,11 @@ To change that, append
 vim.opt.clipboard:append("unnamedplus")
 ```
 to the global section of your `init.lua`. This is equivalent to `set clipboard+=unnamedplus` in vimscript.
+
+## Appendix
+
+### A) Links & Resources
+
+- neovim: <https://github.com/neovim/neovim>
+- vscode-neovim extension: <https://github.com/asvetliakov/vscode-neovim>
+- neovim lua guide: <https://github.com/nanotee/nvim-lua-guide>
