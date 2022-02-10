@@ -50,4 +50,11 @@
         "command": "-colonize.newline",
         "when": "editorTextFocus"
     },
+    // use ':' key for commands even if no editor tab is opened
+    {
+        "key": "Shift+.",
+        "command": "vscode-neovim.send",
+        "when": "!inputFocus && !editorTextFocus",
+        "args": ":"
+    }
 ]

@@ -19,6 +19,14 @@ require('packer').startup(function(use)
     -- surround text objects
     use 'machakann/vim-sandwich'
 
+    -- comment/uncomment
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require'Comment'.setup()
+        end
+    }
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if packer_bootstrap then
@@ -32,6 +40,13 @@ require'mapx'.setup{ global = true }
 
 -- set clipboard to global clipboard
 vim.opt.clipboard:append("unnamedplus")
+
+-- keybindings
+
+-- map jk to escape
+inoremap('jk', '<ESC>')
+inoremap('JK', '<ESC>')
+inoremap('jK', '<ESC>')
 
 -- vscode and nvim only settings
 if (vim.g.vscode) then

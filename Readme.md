@@ -117,6 +117,20 @@ I like to enter normal mode by pressing `jk` instead of `Ctrl+C` or `Esc`. While
 
 Unfortunately, it is not possible to enable `jk` without enabling `jj`. More information on that can be found in the [vscode-neovim extension readme](https://github.com/asvetliakov/vscode-neovim#custom-escape-keys).
 
+Additionally, you can add the following code in you init.lua to enable `jk` even if you're using neovim from the terminal:
+
+```lua
+-- key mappings
+
+-- map jk to escape
+inoremap('jk', '<ESC>')
+inoremap('JK', '<ESC>')
+inoremap('jK', '<ESC>')
+```
+For this to work, you need to have configured mapx.nvim [](https://link)
+
+> For this to work, you need to have mapx.nvim installed ([see 5.2) mapx.nvim](#52-mapxnvim-optional)).
+
 ## 5) Neovim plugins \[*Optional*\]
 
 In this module, we are going to be taking a look at how to set up some neovim plugins.
@@ -215,6 +229,29 @@ use 'machakann/vim-sandwich'
 ```
 inside of the `packer.nvim` startup function.
 
+### 5.3) Comment.nvim
+
+| Name        | Comment.nvim                               |
+| ----------- | ------------------------------------------ |
+| Author      | [numToStr](https://github.com/numToStr)    |
+| Source      | <https://github.com/numToStr/Comment.nvim> |
+| Description | comment and uncomment text                 |
+
+`Comment.nvim` adds motions for commenting out or uncommenting lines, blocks and other text objects similarly to some builtin VSCode shortcuts.
+The most basic motion is `gcc`, which comments out the line your cursor is on.
+This code will add `Comment.nvim` to your plugins and configure it:
+
+```lua
+    -- comment/uncomment
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require'Comment'.setup()
+        end
+    }
+```
+It has to be put into the `packer.nvim` startup function.
+
 ## 6) VSCode Extensions
 
 This module covers various VSCode extensions which need extra configuration to work well with neovim or which improve keyboard navigation in VSCode.
@@ -253,7 +290,7 @@ if (vim.g.vscode) then
     
 ```
 
-For the lua code to work, you need to have mapx.nvim installed ([see 5.2) mapx.nvim](#52-mapxnvim-optional)).
+> For the lua code to work, you need to have mapx.nvim installed ([see 5.2) mapx.nvim](#52-mapxnvim-optional)).
 
 ### 6.2) Colonize \[*Optional*\]
 
@@ -312,6 +349,24 @@ To change that, append
 vim.opt.clipboard:append("unnamedplus")
 ```
 to the global section of your `init.lua`. This is equivalent to `set clipboard+=unnamedplus` in vimscript.
+
+## 8) Better support for Neovim Commands in VSCode
+
+With the default setup, you can't access the command dropdown with `:` unless you are in normal mode in active editor. This prevents you from using commands to e.g. open files while inside the markdown preview or the settings tab.
+
+To bypass this, add the following keyboard shortcut (It may not work on all keyboards, please open an issue if this doesn't work for you):
+
+```json5
+// use ':' key for commands even if no editor tab is opened
+{
+    "key": "Shift+.",
+    "command": "vscode-neovim.send",
+    "when": "!inputFocus && !editorTextFocus",
+    "args": ":"
+}
+```
+
+This will send the colon `:` to the neovim backend when `Shift+.` (colon) is pressed while you aren't focussing on an editor or input.
 
 ## Appendix
 
