@@ -2,6 +2,9 @@
 
 This guide is intended to provide an easy-to-understand installation and configuration help for setting up VSCode with the vscode-neovim extension.
 
+> Note: I am currently in the process of updating this guide as I haven't touched it in quite a while and both the VSCodeNeovim and neovim itself have changed quite a bit since I last touched it.
+> While this note exists, some of the information in this guide may be outdated.
+
 ## Introduction
 
 For a long time I have been wanting to switch to a modal editor like [vim](https://www.vim.org/) or it's fork [neovim](https://neovim.io) and especially in the last months, I have found it to be more and more annoying to have to reach for the mouse when trying to navigate through a project.
@@ -17,9 +20,9 @@ The guide is divided into several modules. The *core* modules are required to se
 
 ## Requirements
 
-[VSCode](https://code.microsoft.com) and [neovim](https://github.com/neovim/neovim) v0.5.0 or greater have to be installed. If neovim is in your system path, you can check your neovim version with the `nvim --version` command.
+[VSCode](https://code.microsoft.com) and [neovim](https://github.com/neovim/neovim) v0.8.0 or greater have to be installed. If neovim is in your system path, you can check your neovim version with the `nvim --version` command.
 
-## 0) Setting up a custom VSCode configuration \[*Optional*\]
+## 0) Setting up a custom VSCode configuration *\[Optional\]*
 
 In this module, we set up a clean VSCode configuration so that you can experiment with your extensions and configuration without messing up your current setup.
 
@@ -32,12 +35,12 @@ code -n --extensions-dir "path/to/extensions/folder" --user-data-dir "path/to/da
 
 Whenever you want to launch your custom VSCode & neovim setup, just execute this script.
 
-## 1) Installation \[*Core*\]
+## 1) Installation *\[Core\]*
 
 This module covers the basic installation and setup necessary to integrate neovim into VSCode.
-Most if not all of this can also be found in the [vscode-neovim extension readme](https://github.com/asvetliakov/vscode-neovim#readme), but we are going to be using lua instead of vimscript for writing the configuration.
+Most if not all of this can also be found in the [vscode-neovim extension readme](https://github.com/vscode-neovim/vscode-neovim#readme), but we are going to be using lua instead of vimscript for writing the neovim configuration.
 
-First of all you have to open VSCode and install the [vscode-neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) extension by [Alexey Svetliakov](https://github.com/asvetliakov).
+First of all you have to open VSCode and install the [vscode-neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) extension ([GitHub](https://github.com/asvetliakov)).
 To tell the extension where the neovim executable is located, we need to open the settings. Throughout this guide, we will be using the settings.json file instead of the gui settings.
 Feel free to use whatever you're comfortable with, but the `settings.json` file works regardless of the language you're using and, with some comments, it is a lot cleaner to look at and work with.
 
@@ -45,12 +48,13 @@ To open the `settings.json`, open the command picker with `F1` or `Ctrl+Shift+P`
 
 To add the neovim executable path to your configuration, set the `vscode-neovim.neovimExecutablePaths.win32/linux/darwin` setting, with the last part depending on your OS, to the path of your neovim executable.
 Let's also add a comment to clarify that we'll put all settings related to the neovim extension here.
-Our example configuration now looks like this:
+Our example configuration now looks similar to this:
 
 ```json5
 {
     // neovim
-    "vscode-neovim.neovimExecutablePaths.win32": "C:\\Neovim\\bin\\nvim.exe",
+    "vscode-neovim.neovimExecutablePaths.win32": "C:\\your-nvim-path\\bin\\nvim.exe",
+    "vscode-neovim.neovimExecutablePaths.linux": "nvim",
 }
 ```
 
@@ -77,7 +81,7 @@ The *if/else* statement is used for configuration specific to VSCode or standalo
 
 For now, we are going to leave the `init.lua` file empty, but some of the optional modules require this structure to work.
 
-## 3) settings.json - VSCode configuration \[*Core*\]
+## 3) settings.json - VSCode configuration *\[Core\]*
 
 We already have a `settings.json` file so let's populate it with some settings to make our life easier.
 In the [vscode-neovim extension readme](https://github.com/asvetliakov/vscode-neovim#readme) it is recommended to set `"editor.scrollBeyondLastLine"` to `false`, so add

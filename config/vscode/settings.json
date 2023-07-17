@@ -1,7 +1,8 @@
 {
     // neovim
-    "vscode-neovim.neovimExecutablePaths.win32": "C:\\Neovim\\bin\\nvim.exe",
-    "editor.scrollBeyondLastLine": false, // recommended by neovim
+    "vscode-neovim.neovimExecutablePaths.win32": "C:\\your-nvim-path\\bin\\nvim.exe",
+    "vscode-neovim.neovimExecutablePaths.linux": "nvim",
+    "editor.scrollBeyondLastLine": false, // recommended by VSCode-neovim
     // neovim-related stuff
     "editor.lineNumbers": "relative",
 }
